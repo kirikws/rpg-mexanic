@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "ru.kirikws.reputationfabric.client.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"PlayerRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

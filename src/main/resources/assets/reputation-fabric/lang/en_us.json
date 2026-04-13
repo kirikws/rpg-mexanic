@@ -1,0 +1,22 @@
+{
+  "category.reputation-fabric.main": "Reputation Fabric",
+  "key.reputation-fabric.mode_toggle": "Toggle Mode (Passive/PvP)",
+
+  "message.reputation-fabric.karma_damage_penalty": "§cKarma penalty: -%d for attacking innocent player",
+  "message.reputation-fabric.karma_kill_penalty": "§cKarma penalty: -%d for killing innocent player",
+  "message.reputation-fabric.karma_kill_bonus": "§aKarma bonus: +%d for eliminating criminal",
+  "message.reputation-fabric.mode_switch_failed": "§cCannot switch mode! You must be stationary and undamaged for 5 seconds.",
+  "message.reputation-fabric.mode_switched": "§aMode switched to: %s",
+  "message.reputation-fabric.compass_target_found": "§aCompass activated! Target located.",
+  "message.reputation-fabric.compass_no_targets": "§cNo targets found within range.",
+  "message.reputation-fabric.attack_blocked_passive": "§cYou cannot attack while in Passive mode!",
+  "message.reputation-fabric.attack_blocked_target_passive": "§cThat player is in Passive mode!",
+  "message.reputation-fabric.karma_changed_by_admin": "§eYour karma has been changed by an admin: %d",
+  "message.reputation-fabric.mode_changed_by_admin": "§eYour mode has been changed by an admin: %s",
+
+  "command.reputation-fabric.karma.get": "Karma of %s: %d",
+  "command.reputation-fabric.karma.set": "Set karma of %s to %d",
+  "command.reputation-fabric.mode.set": "Set mode of %s to %s",
+  "command.reputation-fabric.mode.invalid": "§cInvalid mode: %s. Use 'passive' or 'pvp'.",
+  "command.reputation-fabric.reload.success": "Configuration reloaded successfully."
+}

@@ -1,0 +1,18 @@
+{
+  "block.totemguard.claim_totem": "Тотем Владений",
+  "item.totemguard.copper_coin": "Медная Монета",
+  "item.totemguard.silver_sigil": "Серебряная Сигила",
+  "item.totemguard.golden_idol": "Золотой Идол",
+  "message.totemguard.region_enter": "⚠ Вход на территорию %s",
+  "message.totemguard.not_owner": "У вас нет прав здесь.",
+  "message.totemguard.totem_placed": "Тотем установлен. Радиус региона: %d блоков.",
+  "message.totemguard.totem_removed": "Тотем удалён.",
+  "message.totemguard.totem_inactive": "Этот тотем неактивен (нет валюты).",
+  "command.totemguard.trust.add": "Добавлен %s в список доверенных.",
+  "command.totemguard.trust.remove": "Удалён %s из списка доверенных.",
+  "command.totemguard.info": "Владелец: %s | Тотемов: %d | Активен: %s",
+  "message.totemguard.intruder_warning": "Вы слишком долго в этом регионе! Уйдите или потеряете карму.",
+  "message.totemguard.karma_drain": "Карма: %d (покиньте регион чтобы остановить потерю)",
+  "key.totemguard.toggle_boundaries": "Показать границы регионов",
+  "category.totemguard.main": "TotemGuard"
+}

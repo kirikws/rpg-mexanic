@@ -1,0 +1,49 @@
+{
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"version": "${version}",
+	"name": "Reputation Fabric",
+	"description": "A modular reputation and karma system for Minecraft with visual effects and trade integration.",
+	"authors": [
+		"kirikws"
+	],
+	"contact": {
+		"sources": "https://github.com/kirikws/reputation-fabric"
+	},
+	"license": "MIT",
+	"icon": "assets/reputation-fabric/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ru.kirikws.reputationfabric.ReputationFabricMod"
+		],
+		"client": [
+			"ru.kirikws.reputationfabric.client.ReputationFabricClient",
+			"ru.totemguard.client.TotemGuardClient"
+		],
+		"cardinal-components": [
+			"ru.kirikws.reputationfabric.common.component.ReputationComponents"
+		]
+	},
+	"mixins": [
+		"reputation-fabric.mixins.json",
+		{
+			"config": "reputation-fabric.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": ">=0.92.0",
+		"cardinal-components-base": ">=5.2.0",
+		"cardinal-components-entity": ">=5.2.0",
+		"cloth-config2": ">=11.0.0"
+	},
+	"custom": {
+		"cardinal-components": [
+			"reputation-fabric:player_data"
+		]
+	}
+}

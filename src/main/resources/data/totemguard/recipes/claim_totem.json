@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["GCG", "GTG", "SSS"],
+  "key": {
+    "G": {"item": "minecraft:gold_ingot"},
+    "C": {"item": "minecraft:copper_ingot"},
+    "T": {"item": "minecraft:totem_of_undying"},
+    "S": {"item": "minecraft:stone"}
+  },
+  "result": {"item": "totemguard:claim_totem", "count": 1}
+}

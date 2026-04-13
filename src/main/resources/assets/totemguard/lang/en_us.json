@@ -1,0 +1,18 @@
+{
+  "block.totemguard.claim_totem": "Claim Totem",
+  "item.totemguard.copper_coin": "Copper Coin",
+  "item.totemguard.silver_sigil": "Silver Sigil",
+  "item.totemguard.golden_idol": "Golden Idol",
+  "message.totemguard.region_enter": "⚠ Entering %s's territory",
+  "message.totemguard.not_owner": "You don't have permission here.",
+  "message.totemguard.totem_placed": "Claim totem placed. Region radius: %d blocks.",
+  "message.totemguard.totem_removed": "Claim totem removed.",
+  "message.totemguard.totem_inactive": "This totem is inactive (no currency).",
+  "command.totemguard.trust.add": "Added %s to your trusted list.",
+  "command.totemguard.trust.remove": "Removed %s from your trusted list.",
+  "command.totemguard.info": "Owner: %s | Totems: %d | Active: %s",
+  "message.totemguard.intruder_warning": "You have been in this region too long! Leave or you will lose karma.",
+  "message.totemguard.karma_drain": "Karma: %d (leaving region will stop drain)",
+  "key.totemguard.toggle_boundaries": "Toggle Region Boundaries",
+  "category.totemguard.main": "TotemGuard"
+}

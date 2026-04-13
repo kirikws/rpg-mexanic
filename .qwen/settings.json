@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gradlew *)",
+      "WebSearch",
+      "WebFetch(maven.fabricmc.net)",
+      "Bash(del *)",
+      "Bash(rmdir *)",
+      "Bash(gradlew.bat *)",
+      "Bash(findstr *)",
+      "Bash(curl *)",
+      "Bash(dir *)",
+      "Bash(timeout *)",
+      "Bash(tasklist *)",
+      "Bash(type *)",
+      "Bash(powershell *)",
+      "Bash(ren *)",
+      "Bash(select-string *)",
+      "Bash(select-object *)"
+    ]
+  },
+  "$version": 3
+}
