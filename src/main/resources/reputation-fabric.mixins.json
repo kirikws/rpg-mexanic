@@ -1,8 +1,10 @@
 {
 	"required": true,
-	"package": "ru.kirikws.reputationfabric.mixin",
+	"package": "ru.kirikws.reputationfabric.common.locks.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": [],
+	"mixins": [
+		"ChestBlockMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},

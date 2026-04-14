@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  #",
+    " K ",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "K": {
+      "item": "reputation-fabric:iron_lock"
+    }
+  },
+  "result": {
+    "item": "reputation-fabric:iron_key",
+    "count": 1
+  }
+}

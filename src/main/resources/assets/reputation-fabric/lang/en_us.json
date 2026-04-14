@@ -1,22 +1,38 @@
 {
-  "category.reputation-fabric.main": "Reputation Fabric",
-  "key.reputation-fabric.mode_toggle": "Toggle Mode (Passive/PvP)",
-
-  "message.reputation-fabric.karma_damage_penalty": "§cKarma penalty: -%d for attacking innocent player",
-  "message.reputation-fabric.karma_kill_penalty": "§cKarma penalty: -%d for killing innocent player",
-  "message.reputation-fabric.karma_kill_bonus": "§aKarma bonus: +%d for eliminating criminal",
-  "message.reputation-fabric.mode_switch_failed": "§cCannot switch mode! You must be stationary and undamaged for 5 seconds.",
-  "message.reputation-fabric.mode_switched": "§aMode switched to: %s",
-  "message.reputation-fabric.compass_target_found": "§aCompass activated! Target located.",
-  "message.reputation-fabric.compass_no_targets": "§cNo targets found within range.",
-  "message.reputation-fabric.attack_blocked_passive": "§cYou cannot attack while in Passive mode!",
-  "message.reputation-fabric.attack_blocked_target_passive": "§cThat player is in Passive mode!",
-  "message.reputation-fabric.karma_changed_by_admin": "§eYour karma has been changed by an admin: %d",
-  "message.reputation-fabric.mode_changed_by_admin": "§eYour mode has been changed by an admin: %s",
-
-  "command.reputation-fabric.karma.get": "Karma of %s: %d",
-  "command.reputation-fabric.karma.set": "Set karma of %s to %d",
-  "command.reputation-fabric.mode.set": "Set mode of %s to %s",
-  "command.reputation-fabric.mode.invalid": "§cInvalid mode: %s. Use 'passive' or 'pvp'.",
-  "command.reputation-fabric.reload.success": "Configuration reloaded successfully."
+  "item.reputation-fabric.lock.wooden": "Wooden Lock",
+  "item.reputation-fabric.lock.iron": "Iron Lock",
+  "item.reputation-fabric.lock.golden": "Golden Lock",
+  "item.reputation-fabric.lock.diamond": "Diamond Lock",
+  "item.reputation-fabric.lock.tooltip": "Can be applied to a chest to secure it",
+  
+   "item.reputation-fabric.key.wooden": "Wooden Key",
+   "item.reputation-fabric.key.wooden.unique": "Unique Wooden Key",
+   "item.reputation-fabric.key.iron": "Iron Key",
+   "item.reputation-fabric.key.iron.unique": "Unique Iron Key",
+   "item.reputation-fabric.key.golden": "Golden Key",
+   "item.reputation-fabric.key.golden.unique": "Unique Golden Key",
+   "item.reputation-fabric.key.diamond": "Diamond Key",
+   "item.reputation-fabric.key.diamond.unique": "Unique Diamond Key",
+  "item.reputation-fabric.key.tooltip": "Opens the corresponding lock",
+  
+  "item.reputation-fabric.lockpick": "Lockpick",
+  "item.reputation-fabric.lockpick.tooltip": "Used to pick locks through a minigame",
+  "item.reputation-fabric.lockpick.tooltip2": "Single use!",
+  
+  "lock.type.wooden": "Wooden",
+  "lock.type.iron": "Iron",
+  "lock.type.golden": "Golden",
+  "lock.type.diamond": "Diamond",
+  
+  "container.reputation-fabric.locked_chest": "Locked Chest",
+  "gui.reputation-fabric.locked_chest.locked": "🔒 Locked",
+  "gui.reputation-fabric.locked_chest.instructions": "Insert a key or try a lockpick",
+  
+  "gui.reputation-fabric.lockpick.title": "Lockpicking",
+  "gui.reputation-fabric.lockpick.memorize": "Memorize the sequence!",
+  "gui.reputation-fabric.lockpick.repeat": "Repeat the sequence:",
+  "gui.reputation-fabric.lockpick.success": "§aLock successfully picked!",
+  "gui.reputation-fabric.lockpick.failure": "§cFailed! The lock changed its combination.",
+  
+  "itemGroup.reputation-fabric.locks": "Locks & Keys"
 }

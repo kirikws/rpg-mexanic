@@ -38,6 +38,12 @@ public class ReputationFabricMod implements ModInitializer {
         // Register items and trades
         ru.kirikws.reputationfabric.common.registry.ModItems.registerItems();
 
+        // Register lock system items
+        ru.kirikws.reputationfabric.common.locks.ModLockItems.registerItems();
+
+        // Register lock system screen handlers
+        ru.kirikws.reputationfabric.common.locks.screen.ReputationFabricScreenHandlers.registerScreenHandlers();
+
         // Initialize TotemGuard
         ru.totemguard.TotemGuardMod.init();
         ru.totemguard.recipe.TotemRecipes.register();

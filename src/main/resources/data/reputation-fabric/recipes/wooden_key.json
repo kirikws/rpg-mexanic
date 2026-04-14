@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  #",
+    " K ",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "K": {
+      "item": "reputation-fabric:wooden_lock"
+    }
+  },
+  "result": {
+    "item": "reputation-fabric:wooden_key",
+    "count": 1
+  }
+}

@@ -20,5 +20,8 @@ public class ReputationFabricClient implements ClientModInitializer {
 
         // Register client event handlers
         ClientEventHandler.registerEvents();
+
+        // Register lock system screens
+        ru.kirikws.reputationfabric.client.locks.LockSystemClient.init();
     }
 }

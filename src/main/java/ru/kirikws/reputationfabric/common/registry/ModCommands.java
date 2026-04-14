@@ -38,6 +38,7 @@ public class ModCommands {
             registerKarmaCommand(dispatcher, registryAccess);
             registerModeCommand(dispatcher, registryAccess);
             registerReloadCommand(dispatcher);
+            ru.kirikws.reputationfabric.common.locks.LockCommands.register(dispatcher, registryAccess, environment);
         });
 
         ReputationFabricMod.LOGGER.debug("Registering mod commands...");

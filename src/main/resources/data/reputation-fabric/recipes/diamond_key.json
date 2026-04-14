@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  #",
+    " K ",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "K": {
+      "item": "reputation-fabric:diamond_lock"
+    }
+  },
+  "result": {
+    "item": "reputation-fabric:diamond_key",
+    "count": 1
+  }
+}

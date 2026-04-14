@@ -16,7 +16,8 @@
       "Bash(powershell *)",
       "Bash(ren *)",
       "Bash(select-string *)",
-      "Bash(select-object *)"
+      "Bash(select-object *)",
+      "Bash(mkdir *)"
     ]
   },
   "$version": 3
