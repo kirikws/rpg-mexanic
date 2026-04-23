@@ -22,6 +22,7 @@
   
   "container.reputation-fabric.locked_chest": "Запертый сундук",
   "gui.reputation-fabric.locked_chest.locked": "🔒 Заперто",
+  "gui.reputation-fabric.locked_chest.minigame_coming_soon": "§7Мини-игра взлома скоро...",
   "gui.reputation-fabric.locked_chest.instructions": "Вставьте ключ или попробуйте отмычку",
   
   "gui.reputation-fabric.lockpick.title": "Взлом замка",

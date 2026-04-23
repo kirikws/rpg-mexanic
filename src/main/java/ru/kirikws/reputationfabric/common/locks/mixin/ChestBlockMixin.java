@@ -1,6 +1,7 @@
 package ru.kirikws.reputationfabric.common.locks.mixin;
 
 import net.minecraft.block.ChestBlock;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,7 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,64 +17,118 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import ru.kirikws.reputationfabric.ReputationFabricMod;
 import ru.kirikws.reputationfabric.common.locks.LockData;
 import ru.kirikws.reputationfabric.common.locks.LockManager;
+import ru.kirikws.reputationfabric.common.locks.LockableChest;
+import ru.kirikws.reputationfabric.common.locks.LockpickMinigame;
 import ru.kirikws.reputationfabric.common.locks.ModLockItems;
 import ru.kirikws.reputationfabric.common.locks.item.KeyItem;
 import ru.kirikws.reputationfabric.common.locks.item.LockItem;
+import ru.kirikws.reputationfabric.common.locks.item.LockpickItem;
 
-/**
- * Mixin to intercept chest opening and show lock screen if chest is locked.
- */
 @Mixin(ChestBlock.class)
 public class ChestBlockMixin {
+
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
     private void onChestUse(net.minecraft.block.BlockState state, World world, BlockPos pos,
-                            PlayerEntity player, net.minecraft.util.Hand hand, BlockHitResult hit,
+                            PlayerEntity player, Hand hand, BlockHitResult hit,
                             CallbackInfoReturnable<ActionResult> cir) {
-        if (!world.isClient) {
-            net.minecraft.block.entity.BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof ChestBlockEntity chest) {
-            // Check if player is sneaking and holding a lock item
-            ItemStack mainHand = player.getMainHandStack();
-            ItemStack offHand = player.getOffHandStack();
-            LockItem lockItem = null;
-            ItemStack itemToDecrement = null;
-            if (mainHand.getItem() instanceof LockItem) {
-                lockItem = (LockItem) mainHand.getItem();
-                itemToDecrement = mainHand;
-            } else if (offHand.getItem() instanceof LockItem) {
-                lockItem = (LockItem) offHand.getItem();
-                itemToDecrement = offHand;
-            }
-            if (player.isSneaking() && lockItem != null && !LockManager.isLocked(chest)) {
-                player.sendMessage(Text.literal("Applying lock... Sneaking: " + player.isSneaking() + ", LockItem: " + (lockItem != null) + ", Locked: " + LockManager.isLocked(chest)), true);
-                // Apply the lock
-                LockManager.applyLock(chest, lockItem.getLockType());
-                itemToDecrement.decrement(1);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (!(blockEntity instanceof ChestBlockEntity chest)) {
+            return;
+        }
 
-                    // Get the lock data and create a key
-                    LockData lockData = LockManager.getLockData(chest);
-                    if (lockData != null && lockData.getLockId() != null) {
-                        ItemStack keyStack = new ItemStack(ModLockItems.getKeyForType(lockItem.getLockType()));
-                        KeyItem.setLockId(keyStack, lockData.getLockId());
-                        if (!player.getInventory().insertStack(keyStack)) {
-                            player.dropItem(keyStack, false);
-                        }
-                        player.sendMessage(Text.literal("Lock applied and key received!").formatted(Formatting.GREEN), true);
+        ItemStack heldStack = player.getStackInHand(hand);
+        LockData lockData = LockManager.getLockData(chest);
+        boolean isLocked = lockData != null && lockData.isLocked();
+
+        // 1. Если сундук заблокирован и игрок держит КЛЮЧ → открываем (без снятия замка)
+        if (isLocked && heldStack.getItem() instanceof KeyItem keyItem) {
+            if (world.isClient) {
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+
+            // Проверяем, подходит ли ключ
+            if (keyItem.getLockType() == lockData.getLockType()) {
+                java.util.UUID keyLockId = KeyItem.getLockId(heldStack);
+                if (lockData.getLockId() == null || lockData.getLockId().equals(keyLockId)) {
+                    // Ключ подходит - снимаем блокировку и открываем сундук
+                    player.sendMessage(Text.literal("🔑 Замок открыт!").formatted(Formatting.GREEN), true);
+                    // Открываем интерфейс сундука
+                    net.minecraft.screen.NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                    if (screenHandlerFactory != null) {
+                        player.openHandledScreen(screenHandlerFactory);
                     }
                     cir.setReturnValue(ActionResult.SUCCESS);
                     return;
                 }
-
-                if (LockManager.isLocked(chest)) {
-                    // Open locked chest screen instead
-                    NamedScreenHandlerFactory screenHandlerFactory =
-                            new ru.kirikws.reputationfabric.common.locks.LockedChestScreenHandlerFactory(chest, pos);
-                    player.openHandledScreen(screenHandlerFactory);
-                    cir.setReturnValue(ActionResult.CONSUME);
-                }
             }
+
+            player.sendMessage(Text.literal("🔑 Ключ не подходит к этому замку!").formatted(Formatting.RED), true);
+            cir.setReturnValue(ActionResult.FAIL);
+            return;
         }
+
+        // 2. Если сундук НЕ заблокирован и игрок держит ЗАМОК → установка по ПКМ
+        if (!isLocked && heldStack.getItem() instanceof LockItem lockItem) {
+            if (world.isClient) {
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+
+            ReputationFabricMod.LOGGER.info("[ChestBlockMixin] Применяем замок типа: {}", lockItem.getLockType());
+            LockManager.applyLock(chest, lockItem.getLockType());
+            heldStack.decrement(1);
+
+            LockData newLockData = LockManager.getLockData(chest);
+            if (newLockData != null && newLockData.getLockId() != null) {
+                ItemStack keyStack = new ItemStack(ModLockItems.getKeyForType(lockItem.getLockType()));
+                KeyItem.setLockId(keyStack, newLockData.getLockId());
+                if (!player.getInventory().insertStack(keyStack)) {
+                    player.dropItem(keyStack, false);
+                }
+                player.sendMessage(Text.literal("🔒 Замок установлен! Ключ получен.").formatted(Formatting.GREEN), true);
+            }
+            cir.setReturnValue(ActionResult.SUCCESS);
+            return;
+        }
+
+        // 2.5. Если сундук заблокирован и игрок держит ОТМЫЧКУ → запускаем мини-игру
+        if (isLocked && heldStack.getItem() instanceof LockpickItem) {
+            if (world.isClient) {
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+
+            // Проверяем, не играет ли игрок уже
+            if (LockpickMinigame.isPlaying(player.getUuid())) {
+                player.sendMessage(Text.literal("Вы уже взламываете замок!").formatted(Formatting.YELLOW), true);
+                cir.setReturnValue(ActionResult.FAIL);
+                return;
+            }
+
+            // Удаляем одну отмычку
+            heldStack.decrement(1);
+
+            // Запускаем мини-игру
+            LockpickMinigame.startMinigame(player, chest, lockData);
+            cir.setReturnValue(ActionResult.SUCCESS);
+            return;
+        }
+
+        // 3. Если сундук заблокирован, но игрок не использует ключ/замок/отмычку → блокируем
+        if (isLocked) {
+            if (world.isClient) {
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+            player.sendMessage(Text.literal("🔒 Сундук заперт! Используйте ключ или отмычку.").formatted(Formatting.RED), true);
+            cir.setReturnValue(ActionResult.FAIL);
+            return;
+        }
+
+        // 4. Обычный сундук → стандартное открытие (ничего не делаем, пусть работает оригинальный код)
     }
 }
